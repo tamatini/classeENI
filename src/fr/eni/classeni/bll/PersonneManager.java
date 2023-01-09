@@ -2,13 +2,13 @@ package fr.eni.classeni.bll;
 
 import fr.eni.classeni.bo.Personne;
 import fr.eni.classeni.dal.DALException;
+import fr.eni.classeni.dal.DAO;
 import fr.eni.classeni.dal.DAOFactory;
-import fr.eni.classeni.dal.PersonneDAO;
 
 import java.util.List;
 
 public class PersonneManager {
-  PersonneDAO personneDAO;
+  DAO<Personne> personneDAO;
   public PersonneManager() {
     personneDAO = DAOFactory.getPersonneDAO();
   }

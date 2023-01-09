@@ -1,8 +1,8 @@
 package fr.eni.classeni.dal.jdbc;
 
 import fr.eni.classeni.bo.Classe;
-import fr.eni.classeni.dal.ClasseDAO;
 import fr.eni.classeni.dal.DALException;
+import fr.eni.classeni.dal.DAO;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * @author TEAHUI Jeffrey
  */
-public class ClasseDaoImpl implements ClasseDAO {
+public class ClasseDaoImpl implements DAO<Classe> {
   /**
    * Fonction qui insère une nouvelle classe dans la base de données
    * @param classe la classe à passer en paramètre
@@ -62,7 +62,7 @@ public class ClasseDaoImpl implements ClasseDAO {
    * @return toutes les classes de la base de données
    */
   @Override
-  public List<Classe> getAllClasses() throws DALException {
+  public List<Classe> selectAll() throws DALException {
     String nom;
     Classe classe;
     List<Classe> response = new ArrayList<>();
@@ -105,24 +105,6 @@ public class ClasseDaoImpl implements ClasseDAO {
     try (Connection conn = JdbcTools.getConnection(); PreparedStatement ps = conn.prepareStatement(request)) {
       ps.setInt(2,classe.getIdClasse());
       ps.setString(1,classe.getNom());
-      ps.executeUpdate();
-    } catch (SQLException e) {
-      throw new DALException("Une erreur s'est produite", e);
-    }
-  }
-
-  /**
-   * Assigne un élève à une classe déjà existante
-   * @param idEleve id de l'élève
-   * @param idClasse id de la classe
-   * @throws DALException récupère les erreurs sql
-   */
-  @Override
-  public void addEleve(int idEleve, int idClasse) throws DALException {
-    String request = "UPDATE Personnes SET idClasse=? WHERE idPersonne = ?";
-    try (Connection conn = JdbcTools.getConnection(); PreparedStatement ps = conn.prepareStatement(request)) {
-      ps.setInt(2, idEleve);
-      ps.setInt(1, idClasse);
       ps.executeUpdate();
     } catch (SQLException e) {
       throw new DALException("Une erreur s'est produite", e);

@@ -4,7 +4,7 @@ import fr.eni.classeni.bo.Coach;
 import fr.eni.classeni.bo.Eleve;
 import fr.eni.classeni.bo.Personne;
 import fr.eni.classeni.dal.DALException;
-import fr.eni.classeni.dal.PersonneDAO;
+import fr.eni.classeni.dal.DAO;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * @author TEAHUI Jeffrey
  */
-public class PersonneDAOImpl implements PersonneDAO {
+public class PersonneDAOImpl implements DAO<Personne> {
   private String nom, prenom;
 
   /**
