@@ -6,7 +6,7 @@ import fr.eni.classeni.dal.jdbc.ClasseDaoImpl;
 import fr.eni.classeni.dal.jdbc.PersonneDAOImpl;
 
 public class DAOFactory {
-  public static DAO<Classe> getClasseDAO() {
+  public static  DAO<Classe> getClasseDAO() {
     return new ClasseDaoImpl();
   }
 

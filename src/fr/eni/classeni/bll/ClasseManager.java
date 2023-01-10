@@ -1,6 +1,7 @@
 package fr.eni.classeni.bll;
 
 import fr.eni.classeni.bo.Classe;
+import fr.eni.classeni.dal.ClasseDAO;
 import fr.eni.classeni.dal.DALException;
 import fr.eni.classeni.dal.DAO;
 import fr.eni.classeni.dal.DAOFactory;
@@ -8,9 +9,9 @@ import fr.eni.classeni.dal.DAOFactory;
 import java.util.List;
 
 public class ClasseManager {
-  DAO<Classe> DAO;
+  ClasseDAO DAO;
   public ClasseManager() {
-    DAO = DAOFactory.getClasseDAO();
+    DAO = (ClasseDAO)DAOFactory.getClasseDAO();
   }
 
   public List<Classe> getClasses() throws BLLException {
@@ -54,6 +55,14 @@ public class ClasseManager {
       DAO.delete(id);
     } catch (DALException e) {
       throw new BLLException("Echec de la suppression", e);
+    }
+  }
+  
+  public void addEleve(int idEleve, int idClasse) throws BLLException {
+    try {
+      DAO.ajouterEleve(idEleve, idClasse);
+    } catch (DALException e) {
+      throw new BLLException("Echec de l'ajout", e);
     }
   }
 }

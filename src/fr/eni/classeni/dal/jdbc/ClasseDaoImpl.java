@@ -1,6 +1,7 @@
 package fr.eni.classeni.dal.jdbc;
 
 import fr.eni.classeni.bo.Classe;
+import fr.eni.classeni.dal.ClasseDAO;
 import fr.eni.classeni.dal.DALException;
 import fr.eni.classeni.dal.DAO;
 
@@ -11,7 +12,7 @@ import java.util.List;
 /**
  * @author TEAHUI Jeffrey
  */
-public class ClasseDaoImpl implements DAO<Classe> {
+public class ClasseDaoImpl implements ClasseDAO {
   /**
    * Fonction qui insère une nouvelle classe dans la base de données
    * @param classe la classe à passer en paramètre
@@ -105,6 +106,18 @@ public class ClasseDaoImpl implements DAO<Classe> {
     try (Connection conn = JdbcTools.getConnection(); PreparedStatement ps = conn.prepareStatement(request)) {
       ps.setInt(2,classe.getIdClasse());
       ps.setString(1,classe.getNom());
+      ps.executeUpdate();
+    } catch (SQLException e) {
+      throw new DALException("Une erreur s'est produite", e);
+    }
+  }
+
+  @Override
+  public void ajouterEleve(int idEleve, int idClasse) throws DALException {
+    String request = "UPDATE Personnes SET idClasse = ? WHERE idPersonne = ?";
+    try (Connection conn = JdbcTools.getConnection(); PreparedStatement ps = conn.prepareStatement(request)) {
+      ps.setInt(2,idEleve);
+      ps.setInt(1,idClasse);
       ps.executeUpdate();
     } catch (SQLException e) {
       throw new DALException("Une erreur s'est produite", e);
